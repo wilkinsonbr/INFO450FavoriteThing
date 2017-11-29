@@ -8,7 +8,7 @@
 #include <string>
 using namespace std;
 
-int LIST = 100;
+const int LIST = 100;
 
 
 int main()
@@ -17,7 +17,7 @@ int main()
 	int count = 0;
 	int i;
 	string saveWhere;
-	char addMore;
+	char addMore = 'y';
 	
 	booklist = new Book*[LIST];
 
@@ -30,7 +30,7 @@ int main()
 		while (!infile.eof())
 		{
 			string author, title, length, genre;
-			getline(infile, title, '|');
+			getline(infile, title, ',');
 			
 			if (title.length())
 			{
@@ -38,11 +38,40 @@ int main()
 				getline(infile, length,'|');
 				getline(infile, genre, '|');
 
-				booklist[count] = new Book(stoi(title), author, length, genre);
+				booklist[count] = new Book(title, author, length, genre);
 				count++;
 			}
 		}
 	}
+
+	while (addMore == 'y' || addMore == 'Y')
+	{
+		booklist[count] = new Book();
+		if (booklist[count]->input() == 0) {
+			count++;
+
+			cout << "Do you have any other favorite books? Y/N" << endl;
+			cin >> addMore;
+		}
+			
+		ofstream outfile(saveWhere);
+		if (!outfile.good()) {
+			cout << "No File Found" << endl;
+			return -1;
+		}
+	
+		for (i = 0; i < LIST; i++)
+		{
+			outfile << booklist[i];
+		}
+
+		for (i = 0; i < LIST; i++)
+		{
+			delete booklist[i];
+		}
+
+	}
+
 
     return 0;
 }

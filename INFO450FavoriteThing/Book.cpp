@@ -24,8 +24,6 @@ Book::Book(string auth, string tl, string len, string gen)
 
 }
 
-Book::~Book()
-{}
 
 int Book::input()
 {
@@ -69,3 +67,5 @@ bool operator ==(Book &original, Book &duplicate)
 	
 	return 0;
 }
+Book::~Book()
+{}
