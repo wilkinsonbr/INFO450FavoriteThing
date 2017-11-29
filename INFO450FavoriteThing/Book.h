@@ -19,7 +19,7 @@ public:
 	~Book();
 
 	int input();
-	void output();
+	int output();
 
 	friend ofstream& operator<<(ofstream &fs, Book *item);
 	friend bool operator ==(Book& original, Book& duplicate);

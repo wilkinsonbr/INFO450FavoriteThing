@@ -18,11 +18,12 @@ int main()
 	int i;
 	string saveWhere;
 	char addMore = 'y';
-	
+
 	booklist = new Book*[LIST];
 
 	cout << "Where would you like your file saved?" << endl;
 	getline(cin, saveWhere);
+	cout << endl;
 	ifstream infile(saveWhere);
 
 	if (infile.good())
@@ -30,49 +31,64 @@ int main()
 		while (!infile.eof())
 		{
 			string author, title, length, genre;
-			getline(infile, title, ',');
-			
-			if (title.length())
-			{
-				getline(infile, author, '|');
-				getline(infile, length,'|');
-				getline(infile, genre, '|');
+			getline(infile, author, '|');
 
-				booklist[count] = new Book(title, author, length, genre);
+			if (author.length())
+			{
+				getline(infile, title, '|');
+				getline(infile, length, '|');
+				getline(infile, genre, '\n');
+
+				booklist[count] = new Book(author, title, length, genre);
 				count++;
 			}
 		}
 	}
 
+	cout << "Do you have any favorite books? Y/N" << endl;
+	cin >> addMore;
+	cin.ignore();
+	cin.clear();
+
 	while (addMore == 'y' || addMore == 'Y')
 	{
 		booklist[count] = new Book();
-		if (booklist[count]->input() == 0) {
+		if (booklist[count]->input() == 0)
+		{
 			count++;
 
-			cout << "Do you have any other favorite books? Y/N" << endl;
-			cin >> addMore;
 		}
-			
+
+		cout << "Add another book to your favorites (Y/N)" << endl;
+		cin >> addMore;
+		cout << endl;
+	}
+		for (i = 0; i < count; i++)
+		{
+			booklist[i]->output();
+		}
+
 		ofstream outfile(saveWhere);
+
 		if (!outfile.good()) {
 			cout << "No File Found" << endl;
 			return -1;
 		}
-	
-		for (i = 0; i < LIST; i++)
+
+		for (i = 0; i < count; i++)
 		{
 			outfile << booklist[i];
 		}
 
-		for (i = 0; i < LIST; i++)
+		for (i = 0; i < count; i++)
 		{
 			delete booklist[i];
 		}
 
-	}
 
 
-    return 0;
+	
+	return 0;
+	delete booklist;
 }
 
