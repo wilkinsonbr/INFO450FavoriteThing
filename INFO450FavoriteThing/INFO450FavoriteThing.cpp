@@ -30,17 +30,22 @@ int main()
 	{
 		while (!infile.eof())
 		{
+			
+
 			string author, title, length, genre;
 			getline(infile, author, '|');
 
 			if (author.length())
 			{
+				
 				getline(infile, title, '|');
 				getline(infile, length, '|');
 				getline(infile, genre, '\n');
+				
 
 				booklist[count] = new Book(author, title, length, genre);
 				count++;
+				
 			}
 		}
 	}
@@ -49,6 +54,8 @@ int main()
 	cin >> addMore;
 	cin.ignore();
 	cin.clear();
+	
+	
 
 	while (addMore == 'y' || addMore == 'Y')
 	{
@@ -61,6 +68,8 @@ int main()
 
 		cout << "Add another book to your favorites (Y/N)" << endl;
 		cin >> addMore;
+		cin.ignore();
+		cin.clear();
 		cout << endl;
 	}
 		for (i = 0; i < count; i++)

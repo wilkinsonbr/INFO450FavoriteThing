@@ -42,13 +42,14 @@ int Book::input()
 	cout << "What genre is it?" << endl;
 	getline(cin, genre);
 
+
 	return 0;
 }
 
 int Book::output()
 {
 	cout << "The book " << title << " written by " << author
-		<< " is " << length << " long, and is a " 
+		<< " is " << length << " pages long, and is a " 
 		<< genre << " novel." << endl;
 	cout << endl;
 	return 0;
